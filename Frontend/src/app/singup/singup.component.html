@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span>Singup</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typograpgy">
+    <form [formGroup]="singupFrom">
+        <div fxFlex fxLayout="column">
+            <mat-form-field appearance="standard" fxFlex>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="singupFrom.controls.name.touched && singupFrom.controls.name">
+                    <span *ngIf="singupFrom.controls.name.errors">this field is mandatory</span>
+                    <span *ngIf="singupFrom.controls.name.errors">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex>
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="contactNumber" required>
+                <mat-error *ngIf="singupFrom.controls.contactNumber.touched && singupFrom.controls.contactnumber">
+                    <span *ngIf="singupFrom.controls.contactNumber.errors">this field is mandatory</span>
+                    <span *ngIf="singupFrom.controls.contactNumber.errors">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error *ngIf="singupFrom.controls.email.touched && singupFrom.controls.email">
+                    <span *ngIf="singupFrom.controls.email.errors">this field is mandatory</span>
+                    <span *ngIf="singupFrom.controls.email.errors">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password" required [type]="password ? 'password' :'text'">
+                <BUtton type="button" mat-icon-button matSuffix (click)="password = !password" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="password">
+                    <mat-icon>{{password ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </BUtton>
+                <mat-error *ngIf="singupFrom.controls.password.touched && singupFrom.controls.password">
+                    <span *ngIf="singupFrom.controls.password.errors">this field is mandatory</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirmPassword" type="password" required [type]="confirmPassword ? 'password' :'text'">
+                <BUtton type="button" mat-icon-button matSuffix (click)="confirmPassword = !confirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="password">
+                    <mat-icon>{{confirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </BUtton>
+                <mat-error *ngIf="singupFrom.controls.confirmPassword.touched && singupFrom.controls.confirmPassword">
+                    <span *ngIf="singupFrom.controls.confirmPassword.errors">this field is mandatory</span>
+                </mat-error>
+                <mat-hint *ngIf="validateSubmit() && !(singupFrom.controls.confirmPassword)">
+                    <span>New password & Confirm password does not match</span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()" [disabled]="validateSubmit() || !(singupFrom.valid && singupFrom.dirty)">
+        <mat-icon>save</mat-icon> Singup
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close><mat-icon>cancel</mat-icon>Close</button>
+</mat-dialog-actions>
+
+
+
